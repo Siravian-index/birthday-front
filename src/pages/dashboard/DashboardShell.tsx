@@ -8,9 +8,10 @@ import {
     Text,
     MediaQuery,
     Burger,
-    useMantineTheme,
+    useMantineTheme, Title, Button,
 } from '@mantine/core';
 import {Outlet} from "react-router-dom";
+import ToggleDarkButton from "../../components/Mantine/ToggleDarkButton";
 
 export default function DashboardShell() {
     const theme = useMantineTheme();
@@ -45,7 +46,7 @@ export default function DashboardShell() {
             }
             header={
                 <Header height={70} p="md">
-                    <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', height: '100%', justifyContent: 'space-between' }}>
                         <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
                             <Burger
                                 opened={opened}
@@ -56,7 +57,9 @@ export default function DashboardShell() {
                             />
                         </MediaQuery>
 
-                        <Text>Sofka Birthday Tracker</Text>
+                        <Title order={3}>Sofka Birthday Tracker</Title>
+
+                        <ToggleDarkButton/>
                     </div>
                 </Header>
             }

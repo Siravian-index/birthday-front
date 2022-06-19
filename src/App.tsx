@@ -1,22 +1,24 @@
-import {Route, Routes} from "react-router-dom";
-import DashboardShell from "./pages/dashboard/DashboardShell";
-import AddMatePage from "./pages/addMate/AddMatePage";
-import UpdateMatePage from "./pages/updateMate/UpdateMatePage";
-import ShowMatesPage from "./pages/showMates/ShowMatesPage";
+import {ColorScheme, ColorSchemeProvider, MantineProvider} from "@mantine/core";
+import {useHotkeys, useLocalStorage} from "@mantine/hooks";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
+    const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+        key: 'mantine-color-scheme',
+        defaultValue: 'light',
+        getInitialValueInEffect: true,
+    });
 
+    const toggleColorScheme = (value?: ColorScheme) =>
+        setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+
+    useHotkeys([['mod+J', () => toggleColorScheme()]]);
     return (
-        <div>
-            <Routes>
-                <Route path="/" element={<DashboardShell/>}>
-                    <Route index element={<ShowMatesPage/>}/>
-                    <Route path='form' element={<AddMatePage/>}/>
-                    <Route path='update' element={<UpdateMatePage/>}/>
-                </Route>
-            </Routes>
-
-        </div>
+        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+            <MantineProvider theme={{colorScheme}} withGlobalStyles withNormalizeCSS>
+                <AppRoutes/>
+            </MantineProvider>
+        </ColorSchemeProvider>
     )
 }
 

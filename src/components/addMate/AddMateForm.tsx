@@ -1,14 +1,16 @@
 import * as React from "react"
+import {useState} from "react"
 import {Button, Container, Group, Select, TextInput} from "@mantine/core";
 import {DatePicker} from "@mantine/dates";
-import {QuestionMark} from 'tabler-icons-react';
-import {useState} from "react";
 import {formatDate} from "../../utils";
+import QuestionMarkIcon from "../Mantine/QuestionMarkIcon";
 
 interface IProps {
 }
 
 const AddMateForm: React.FC<IProps> = () => {
+
+    //states
     const [date, setDate] = useState<Date | null>(new Date());
     const [name, setName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -17,12 +19,17 @@ const AddMateForm: React.FC<IProps> = () => {
     const [secret, setSecret] = useState("")
     const [maritalStatus, setMaritalStatus] = useState("")
 
+    //selector data options
     const data = [
         {value: 'Married', label: 'Married'},
         {value: 'Single', label: 'Single'},
         {value: 'Looking for fun', label: 'Looking for fun'},
     ]
 
+
+
+
+    //on submit function
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const filled = [name, lastName, city, phone, secret, maritalStatus, date].every(Boolean)
@@ -58,8 +65,9 @@ const AddMateForm: React.FC<IProps> = () => {
                         onChange={(e) => setLastName(e.target.value)}
                     />
                 </Group>
+
                 <Group position='left' my='xs'>
-                    <DatePicker placeholder="Pick date" label="Event date" value={date} onChange={setDate}/>
+                    <DatePicker required placeholder="Pick date" label="Birthday" value={date} onChange={setDate}/>
                 </Group>
                 <Group position='left'>
                     <TextInput
@@ -79,6 +87,7 @@ const AddMateForm: React.FC<IProps> = () => {
                 </Group>
                 <Group position='left' my='xs'>
                     <Select
+                        required
                         label="Marital Status"
                         placeholder="Pick one"
                         data={data}
@@ -87,11 +96,7 @@ const AddMateForm: React.FC<IProps> = () => {
                     />
                     <TextInput
                         title="This is used for future updates"
-                        icon={<QuestionMark
-                            size={12}
-                            strokeWidth={2}
-                            color={'black'}
-                        />}
+                        icon={<QuestionMarkIcon/>}
                         placeholder="Secret"
                         label="Your secret"
                         required
