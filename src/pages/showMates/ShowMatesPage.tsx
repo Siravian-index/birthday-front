@@ -1,5 +1,6 @@
 import * as React from "react"
 import MatesList from "../../components/showMates/MatesList";
+import RandomTitle from "../../components/Mantine/RandomTitle";
 
 interface IProps {}
 
@@ -7,7 +8,7 @@ const ShowMatesPage : React.FC<IProps> = () => {
 
 
     return <>
-        <h1>Get mates</h1>
+        <RandomTitle title={"See"}  isPlural={true}/>
         <MatesList/>
     </>
 }

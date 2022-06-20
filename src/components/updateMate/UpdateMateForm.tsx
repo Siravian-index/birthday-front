@@ -2,27 +2,34 @@ import * as React from "react"
 import {useState} from "react"
 import {Button, Container, Group, Select, TextInput} from "@mantine/core";
 import {DatePicker} from "@mantine/dates";
-import {formatDate} from "../../utils";
+import {formatDate, fromStringToDate} from "../../utils";
 import QuestionMarkIcon from "../Mantine/QuestionMarkIcon";
 import {useAppDispatch} from "../../redux/app/store";
 import {postBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
+import {IBirthday} from "../../redux/features/birthday/birthdayTypes";
 
 interface IProps {
-
+    birthday: IBirthday
 }
 
-const AddMateForm: React.FC<IProps> = () => {
+const UpdateMateForm: React.FC<IProps> = ({birthday: b}) => {
     //dispatch
     const dispatch = useAppDispatch()
 
+
+    //split name into two
+    const [firstName, surname] = b.name.split(" ")
+    //format date
+
+
     //states
     const [date, setDate] = useState<Date | null>(new Date());
-    const [name, setName] = useState("")
-    const [lastName, setLastName] = useState("")
-    const [city, setCity] = useState("")
-    const [phone, setPhone] = useState("")
+    const [name, setName] = useState(firstName)
+    const [lastName, setLastName] = useState(surname)
+    const [city, setCity] = useState(b.city)
+    const [phone, setPhone] = useState(b.phone)
     const [secret, setSecret] = useState("")
-    const [maritalStatus, setMaritalStatus] = useState("")
+    const [maritalStatus, setMaritalStatus] = useState(b.maritalStatus)
     //
     const clearAll = () => {
         setName("")
@@ -109,7 +116,7 @@ const AddMateForm: React.FC<IProps> = () => {
                     <TextInput
                         title="This is used for future updates"
                         icon={<QuestionMarkIcon/>}
-                        placeholder="Secret"
+                        placeholder="Your secret here..."
                         label="Your secret"
                         required
                         value={secret}
@@ -124,6 +131,6 @@ const AddMateForm: React.FC<IProps> = () => {
     </>
 }
 
-export default AddMateForm
+export default UpdateMateForm
 
 

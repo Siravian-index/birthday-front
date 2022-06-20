@@ -1,10 +1,12 @@
 import * as React from "react"
 import {ActionIcon, Badge, Button, Card, Group, Modal, Text, TextInput, Title, useMantineTheme} from "@mantine/core";
 import {IBirthday} from "../../redux/features/birthday/birthdayTypes";
-import {Trash} from "tabler-icons-react";
+import {Pencil, Trash} from "tabler-icons-react";
 import {useAppDispatch} from "../../redux/app/store";
 import {deleteBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import {useState} from "react";
+import AddMateForm from "../addMate/AddMateForm";
+import UpdateMateForm from "../updateMate/UpdateMateForm";
 
 interface IProps {
     birthday: IBirthday
@@ -13,7 +15,8 @@ interface IProps {
 const MatesCard: React.FC<IProps> = ({birthday}) => {
     const dispatch = useAppDispatch()
     const theme = useMantineTheme();
-    const [opened, setOpened] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
     const [secret, setSecret] = useState("")
 
     const secondaryColor = theme.colorScheme === 'dark'
@@ -25,17 +28,26 @@ const MatesCard: React.FC<IProps> = ({birthday}) => {
         const birthdayToDelete = {...birthday, secret}
         dispatch(deleteBirthdaysThunk(birthdayToDelete))
     }
-    const customTrash = <ActionIcon onClick={() => setOpened(true)} variant="outline" color="pink">
+    const customTrash = <ActionIcon onClick={() => setOpenDelete(true)} variant="outline" color="pink">
         <Trash
+            size={12}
+        />
+    </ActionIcon>
+
+
+    const customPencil = <ActionIcon onClick={() => setOpenEdit(true)} variant="outline" color="green">
+        <Pencil
             size={12}
         />
     </ActionIcon>
 
     return (
         <div>
+            {/*-----------*/}
+
             <Modal
-                opened={opened}
-                onClose={() => setOpened(false)}
+                opened={openDelete}
+                onClose={() => setOpenDelete(false)}
                 title="Are you sure you want to delete it?"
             >
                 <form onSubmit={handleSubmitDeletion}>
@@ -49,10 +61,17 @@ const MatesCard: React.FC<IProps> = ({birthday}) => {
                     <Button color='red' type='submit'>Delete</Button>
                 </form>
             </Modal>
+            <Modal
+                opened={openEdit}
+                onClose={() => setOpenEdit(false)}
+                title={`Editing: ${birthday.name}`}
+            >
+             <UpdateMateForm birthday={birthday}/>
+            </Modal>
+            {/*-----------*/}
             <Card shadow="sm" p="lg">
                 <Group grow style={{ display: 'flex', flexBasis: 'max-content'}}>
                     <Title order={4} align='center'> {birthday.name}</Title>
-                    {customTrash}
                 </Group>
 
                 <Group style={{marginBottom: 5, marginTop: theme.spacing.sm}}>
@@ -70,6 +89,10 @@ const MatesCard: React.FC<IProps> = ({birthday}) => {
                     <Text size="sm" style={{color: secondaryColor, lineHeight: 1.5}}>
                         City: {birthday.city}
                     </Text>
+                </Group>
+                <Group mt='sm'>
+                    {customTrash}
+                    {customPencil}
                 </Group>
             </Card>
         </div>

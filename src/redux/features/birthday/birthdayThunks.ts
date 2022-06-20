@@ -28,8 +28,5 @@ export const deleteBirthdaysThunk = createAsyncThunk('delete/birthday',
             method: METHODS_HTTP.DELETE,
             body: JSON.stringify(birthday)
         })
-        console.log('delete thunk')
-        console.log(response)
-
         return {wasDeleted: response.ok, id: `${birthday.id}`}
     })
