@@ -12,7 +12,7 @@ export interface IState {
 export interface IBirthday {
     id?: string
     name: string
-    age: string
+    age?: string
     birthday: string
     phone: string
     city: string

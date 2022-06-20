@@ -33,7 +33,7 @@ const MatesCard: React.FC<IProps> = ({birthday}) => {
                         Phone: {birthday.phone}
                     </Text>
                     <Text size="sm" style={{color: secondaryColor, lineHeight: 1.5}}>
-                        Phone: {birthday.city}
+                        City: {birthday.city}
                     </Text>
                 </Group>
             </Card>

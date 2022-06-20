@@ -4,11 +4,15 @@ import {Button, Container, Group, Select, TextInput} from "@mantine/core";
 import {DatePicker} from "@mantine/dates";
 import {formatDate} from "../../utils";
 import QuestionMarkIcon from "../Mantine/QuestionMarkIcon";
+import {useAppDispatch} from "../../redux/app/store";
+import {postBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 
 interface IProps {
 }
 
 const AddMateForm: React.FC<IProps> = () => {
+    //dispatch
+    const dispatch = useAppDispatch()
 
     //states
     const [date, setDate] = useState<Date | null>(new Date());
@@ -18,7 +22,16 @@ const AddMateForm: React.FC<IProps> = () => {
     const [phone, setPhone] = useState("")
     const [secret, setSecret] = useState("")
     const [maritalStatus, setMaritalStatus] = useState("")
-
+    //
+    const clearAll =() => {
+        setName("")
+        setLastName("")
+        setCity("")
+        setPhone("")
+        setSecret("")
+        setMaritalStatus("")
+        // setDate(new Date())
+    }
     //selector data options
     const data = [
         {value: 'Married', label: 'Married'},
@@ -30,10 +43,10 @@ const AddMateForm: React.FC<IProps> = () => {
 
 
     //on submit function
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const filled = [name, lastName, city, phone, secret, maritalStatus, date].every(Boolean)
-        if (filled) {
+        const filled = [name, lastName, city, phone, secret, maritalStatus].every(Boolean)
+        if (filled && date) {
             const newBirthday = {
                 name: `${name} ${lastName}`,
                 birthday: formatDate(date),
@@ -42,6 +55,9 @@ const AddMateForm: React.FC<IProps> = () => {
                 maritalStatus,
                 secret
             }
+            dispatch(postBirthdaysThunk(newBirthday))
+            clearAll()
+
         }
 
     }
@@ -104,7 +120,7 @@ const AddMateForm: React.FC<IProps> = () => {
                         onChange={(e) => setSecret(e.target.value)}
                     />
                 </Group>
-                <Button color="pink" radius="lg" mt='xs'>
+                <Button color="pink" radius="lg" mt='xs' type='submit'>
                     Submit
                 </Button>
             </form>

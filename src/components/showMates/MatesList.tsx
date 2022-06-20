@@ -1,9 +1,9 @@
 import * as React from "react"
+import {useEffect} from "react"
 import {useAppDispatch} from "../../redux/app/store";
 import {useSelector} from "react-redux";
 import {selectBirthdayFetchStatus, selectBirthdayList} from "../../redux/features/birthday/birthdaySlice";
-import {Center, Container, Loader, SimpleGrid} from "@mantine/core";
-import {useEffect} from "react";
+import {Center, Loader, SimpleGrid} from "@mantine/core";
 import {getAllBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import {fetchStatus} from "../../types/generalTypes";
 import MatesCard from "./MatesCard";

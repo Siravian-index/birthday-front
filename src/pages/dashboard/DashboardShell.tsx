@@ -8,9 +8,9 @@ import {
     Text,
     MediaQuery,
     Burger,
-    useMantineTheme, Title, Button,
+    useMantineTheme, Title, Button, Anchor,
 } from '@mantine/core';
-import {Outlet} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 import ToggleDarkButton from "../../components/Mantine/ToggleDarkButton";
 
 export default function DashboardShell() {
@@ -28,7 +28,12 @@ export default function DashboardShell() {
             fixed
             navbar={
                 <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
-                    <Text>Application navbar</Text>
+                    <Navbar.Section>
+                        <Anchor component={Link} to='/'>Main</Anchor>
+                    </Navbar.Section>
+                    <Navbar.Section>
+                        <Anchor component={Link} to='/form'>Form</Anchor>
+                    </Navbar.Section>
                 </Navbar>
             }
             aside={
