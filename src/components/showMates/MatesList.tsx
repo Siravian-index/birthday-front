@@ -21,19 +21,7 @@ const MatesList: React.FC<IProps> = () => {
             <Loader color="pink" variant="bars"/>
         </Center>
 
-    const content = birthdayList.map(b => <Grid.Col md={6} xl={3} key={b.id}> <MatesCard  birthday={b}/> </Grid.Col>)
-
-    const simpleGrid = <SimpleGrid
-        cols={4}
-        spacing="lg"
-        breakpoints={[
-            {maxWidth: 980, cols: 3, spacing: 'md'},
-            {maxWidth: 755, cols: 2, spacing: 'sm'},
-            {maxWidth: 600, cols: 1, spacing: 'sm'},
-        ]}
-    >
-        {content}
-    </SimpleGrid>
+    const content = birthdayList.map(b => <MatesCard  key={b.id} birthday={b}/>)
 
     const grid = <Grid>
         {content}

@@ -3,7 +3,6 @@ import {Route, Routes} from "react-router-dom";
 import DashboardShell from "../pages/dashboard/DashboardShell";
 import ShowMatesPage from "../pages/showMates/ShowMatesPage";
 import AddMatePage from "../pages/addMate/AddMatePage";
-import UpdateMatePage from "../pages/updateMate/UpdateMatePage";
 import PageNotFound from "../components/error/PageNotFound";
 
 interface IProps {}

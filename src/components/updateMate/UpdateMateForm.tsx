@@ -2,7 +2,7 @@ import * as React from "react"
 import {useState} from "react"
 import {Button, Container, Group, Select, TextInput} from "@mantine/core";
 import {DatePicker} from "@mantine/dates";
-import {formatDate} from "../../utils";
+import {correctDateFormat, formatDate} from "../../utils";
 import QuestionMarkIcon from "../Mantine/QuestionMarkIcon";
 import {useAppDispatch} from "../../redux/app/store";
 import {putBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
@@ -14,19 +14,18 @@ interface IProps {
 }
 
 const UpdateMateForm: React.FC<IProps> = ({birthday: b}) => {
-    const OFFSET = 1
     //dispatch
     const dispatch = useAppDispatch()
 
 
     //split name into two
     const [firstName, surname] = b.name.split(" ")
-    //format date
-    const [day, month, year] = b.birthday.split("-")
+
+
 
 
     //states
-    const [date, setDate] = useState<Date | null>(new Date(`${year}-${month}-${Number(day) + OFFSET}`));
+    const [date, setDate] = useState<Date | null>(new Date(correctDateFormat(b.birthday)));
     const [name, setName] = useState(firstName)
     const [lastName, setLastName] = useState(surname)
     const [city, setCity] = useState(b.city)

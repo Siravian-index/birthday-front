@@ -9,6 +9,7 @@ const ShowMatesPage : React.FC<IProps> = () => {
 
     return <>
         <RandomTitle title={"See"}  isPlural={true}/>
+        {/*filter by name*/}
         <MatesList/>
     </>
 }

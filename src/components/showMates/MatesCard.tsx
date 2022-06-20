@@ -1,6 +1,6 @@
 import * as React from "react"
 import {useState} from "react"
-import {ActionIcon, Badge, Card, Group, Modal, Text, Title, useMantineTheme} from "@mantine/core";
+import {ActionIcon, Badge, Card, Group, Modal, Text, Title, useMantineTheme, Grid} from "@mantine/core";
 import {IBirthday} from "../../redux/features/birthday/birthdayTypes";
 import {Pencil, Trash} from "tabler-icons-react";
 import {useAppDispatch} from "../../redux/app/store";
@@ -42,7 +42,7 @@ const MatesCard: React.FC<IProps> = ({birthday}) => {
     </ActionIcon>
 
     return (
-        <div>
+        <Grid.Col md={6} xl={3} >
             {/*------Modals-----*/}
             <Modal
                 opened={openDelete}
@@ -88,7 +88,7 @@ const MatesCard: React.FC<IProps> = ({birthday}) => {
                     {customPencil}
                 </Group>
             </Card>
-        </div>
+        </Grid.Col>
     )
 
 }
