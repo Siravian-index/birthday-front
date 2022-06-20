@@ -18,5 +18,5 @@ export const postBirthdaysThunk = createAsyncThunk('post/birthday',
             method: METHODS_HTTP.POST,
             body: JSON.stringify(birthday)
         })
-        return (await response.json()) as IBirthday[]
+        return (await response.json()) as IBirthday
     })

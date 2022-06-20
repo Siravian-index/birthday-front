@@ -7,6 +7,7 @@ export enum METHODS_HTTP {
 
 export enum fetchStatus {
     IDLE= 'IDLE',
+    PENDING = 'PENDING',
     FAILED= 'FAILED',
     SUCCESS = 'SUCCESS'
 }
