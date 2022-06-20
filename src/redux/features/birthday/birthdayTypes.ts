@@ -21,4 +21,8 @@ export interface IBirthday {
 }
 
 
+export interface IDeleteResponse {
+    wasDeleted: boolean
+    id: string
+}
 
