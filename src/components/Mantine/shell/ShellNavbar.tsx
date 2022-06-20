@@ -1,6 +1,5 @@
 import * as React from "react"
-import {Anchor, Navbar} from "@mantine/core";
-import {Link} from "react-router-dom";
+import {Navbar} from "@mantine/core";
 import {MainLinks} from "./navlinks/MainLinks";
 
 interface IProps {
@@ -8,16 +7,10 @@ interface IProps {
 }
 
 const ShellNavbar : React.FC<IProps> = ({opened}) => {
-    return <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
+    return <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 250 }}>
         <Navbar.Section>
             <MainLinks/>
         </Navbar.Section>
-        {/*<Navbar.Section>*/}
-        {/*    <Anchor component={Link} to='/'>Main</Anchor>*/}
-        {/*</Navbar.Section>*/}
-        {/*<Navbar.Section>*/}
-        {/*    <Anchor component={Link} to='/form'>Form</Anchor>*/}
-        {/*</Navbar.Section>*/}
     </Navbar>
 }
 

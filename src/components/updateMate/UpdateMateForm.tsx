@@ -107,7 +107,7 @@ const UpdateMateForm: React.FC<IProps> = ({birthday: b}) => {
                         onChange={(e) => setMaritalStatus(`${e}`)}
                     />
                     <TextInput
-                        title="This is used for future updates"
+                        title="This is used for future updates on your data."
                         icon={<QuestionMarkIcon/>}
                         placeholder="Your secret here..."
                         label="Your secret"

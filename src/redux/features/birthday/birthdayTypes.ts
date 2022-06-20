@@ -5,7 +5,7 @@ export interface IState {
     error: null | string
     fetchStatus: fetchStatus
     birthdayList: IBirthday[]
-
+    filter: string
 }
 
 

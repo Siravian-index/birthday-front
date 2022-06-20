@@ -1,8 +1,12 @@
 import * as React from "react"
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 import {useAppDispatch} from "../../redux/app/store";
 import {useSelector} from "react-redux";
-import {selectBirthdayFetchStatus, selectBirthdayList} from "../../redux/features/birthday/birthdaySlice";
+import {
+    selectBirthdayFetchStatus,
+    selectBirthdayFilter,
+    selectBirthdayList
+} from "../../redux/features/birthday/birthdaySlice";
 import {Center, Grid, Loader, SimpleGrid} from "@mantine/core";
 import {getAllBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import {fetchStatus} from "../../types/generalTypes";
@@ -16,14 +20,18 @@ const MatesList: React.FC<IProps> = () => {
     const dispatch = useAppDispatch()
     const birthdayList = useSelector(selectBirthdayList())
     const status = useSelector(selectBirthdayFetchStatus())
+    const filter = useSelector(selectBirthdayFilter())
+
     const loader =
         <Center>
             <Loader color="pink" variant="bars"/>
         </Center>
 
-    const content = birthdayList.map(b => <MatesCard  key={b.id} birthday={b}/>)
+    const content = birthdayList
+        .filter(b => b.name.toLowerCase().includes(filter))
+        .map(b => <MatesCard  key={b.id} birthday={b}/>)
 
-    const grid = <Grid>
+    const grid = <Grid mt='xs'>
         {content}
     </Grid>
 
