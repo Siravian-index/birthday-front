@@ -7,6 +7,7 @@ import QuestionMarkIcon from "../Mantine/QuestionMarkIcon";
 import {useAppDispatch} from "../../redux/app/store";
 import {postBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import {selectMaritalStatusData} from "../../types/generalData";
+import {validatePhoneBeforeSetting} from "../../utils/stringUtils";
 
 interface IProps {
 
@@ -33,6 +34,7 @@ const AddMateForm: React.FC<IProps> = () => {
         setSecret("")
         setMaritalStatus("")
     }
+
 
 
 
@@ -83,7 +85,7 @@ const AddMateForm: React.FC<IProps> = () => {
                         label="Phone"
                         required
                         value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        onChange={(e) => validatePhoneBeforeSetting(e.target.value, setPhone)}
                     />
                     <TextInput
                         placeholder="City"

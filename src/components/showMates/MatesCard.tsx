@@ -5,6 +5,7 @@ import {IBirthday} from "../../redux/features/birthday/birthdayTypes";
 import {Pencil, Trash} from "tabler-icons-react";
 import UpdateMateForm from "../updateMate/UpdateMateForm";
 import DeleteMateForm from "../deleteMate/DeleteMateForm";
+import {formatString} from "../../utils/stringUtils";
 
 interface IProps {
     birthday: IBirthday
@@ -58,7 +59,7 @@ const MatesCard: React.FC<IProps> = ({birthday}) => {
             {/*-----------*/}
             <Card shadow="sm" p="lg">
                 <Group>
-                    <Title order={4} align='center'>{birthday.name}  {`<${birthday.age}/>`}</Title>
+                    <Title order={4} align='center'>{formatString(birthday.name)}  {`<${birthday.age}/>`}</Title>
                 </Group>
 
                 <Group style={{marginBottom: 5, marginTop: theme.spacing.sm}}>

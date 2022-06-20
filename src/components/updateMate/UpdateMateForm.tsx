@@ -8,6 +8,7 @@ import {useAppDispatch} from "../../redux/app/store";
 import {putBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import {IBirthday} from "../../redux/features/birthday/birthdayTypes";
 import {selectMaritalStatusData} from "../../types/generalData";
+import {validatePhoneBeforeSetting} from "../../utils/stringUtils";
 
 interface IProps {
     birthday: IBirthday
@@ -87,7 +88,7 @@ const UpdateMateForm: React.FC<IProps> = ({birthday: b}) => {
                         label="Phone"
                         required
                         value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        onChange={(e) => validatePhoneBeforeSetting(e.target.value, setPhone)}
                     />
                     <TextInput
                         placeholder="City"
