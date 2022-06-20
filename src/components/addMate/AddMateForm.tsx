@@ -2,7 +2,7 @@ import * as React from "react"
 import {useState} from "react"
 import {Button, Container, Group, Select, TextInput} from "@mantine/core";
 import {DatePicker} from "@mantine/dates";
-import {formatDate} from "../../utils";
+import {formatDate} from "../../utils/dateUtils";
 import QuestionMarkIcon from "../Mantine/QuestionMarkIcon";
 import {useAppDispatch} from "../../redux/app/store";
 import {postBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";

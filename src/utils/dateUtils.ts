@@ -2,8 +2,10 @@ export const formatDate = (date: Date) => date.toLocaleDateString().split('-').r
 
 
 
+//toggles between these formats
 //dd/mm/yyyy
-export const fromStringToDate = (date: string) =>  date.split('-').reverse().join('-')
+//yyyy/mm/dd
+export const toggleDateFormat = (date: string) =>  date.split('-').reverse().join('-')
 
 
 export const correctDateFormat = (date: string) => {

@@ -2,7 +2,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {IBirthday} from "./birthdayTypes";
 import {HEADERS, METHODS_HTTP} from "../../../types/generalTypes";
 
-const ENDPOINT = 'https://birthday-sofka-tracker.herokuapp.com/v1/api/birthday'
+const ENDPOINT = 'https://birthday-sofka-tracker.herokuapp.com/v1/api/birthday/'
 
 
 export const getAllBirthdaysThunk = createAsyncThunk('get/birthdays',

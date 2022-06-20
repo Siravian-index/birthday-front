@@ -1,10 +1,8 @@
 import * as React from "react"
 import {useState} from "react"
-import {ActionIcon, Badge, Card, Group, Modal, Text, Title, useMantineTheme, Grid} from "@mantine/core";
+import {ActionIcon, Badge, Card, Grid, Group, Modal, Text, Title, useMantineTheme} from "@mantine/core";
 import {IBirthday} from "../../redux/features/birthday/birthdayTypes";
 import {Pencil, Trash} from "tabler-icons-react";
-import {useAppDispatch} from "../../redux/app/store";
-import {deleteBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import UpdateMateForm from "../updateMate/UpdateMateForm";
 import DeleteMateForm from "../deleteMate/DeleteMateForm";
 
@@ -13,7 +11,6 @@ interface IProps {
 }
 
 const MatesCard: React.FC<IProps> = ({birthday}) => {
-    const dispatch = useAppDispatch()
     const theme = useMantineTheme();
     const [openDelete, setOpenDelete] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
@@ -24,10 +21,7 @@ const MatesCard: React.FC<IProps> = ({birthday}) => {
         : theme.colors.gray[7];
 
 
-    const handleSubmitDeletion = () => {
-        const birthdayToDelete = {...birthday, secret}
-        dispatch(deleteBirthdaysThunk(birthdayToDelete))
-    }
+
     const customTrash = <ActionIcon onClick={() => setOpenDelete(true)} variant="outline" color="pink">
         <Trash
             size={12}
@@ -50,7 +44,7 @@ const MatesCard: React.FC<IProps> = ({birthday}) => {
                 title="Are you sure you want to delete it?"
             >
                 <DeleteMateForm
-                    handleSubmitDeletion={handleSubmitDeletion}
+                    birthday={birthday}
                     secret={secret}
                     setSecret={setSecret}/>
             </Modal>
