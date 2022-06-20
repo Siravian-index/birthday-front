@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IBirthday, IState} from "./birthdayTypes";
 import {fetchStatus} from "../../../types/generalTypes";
 import {getAllBirthdaysThunk, postBirthdaysThunk} from "./birthdayThunks";
+import {RootState} from "../../app/store";
 
 const initialState: IState  = {
     birthdayList: [],
@@ -46,3 +47,12 @@ const birthdaySlice = createSlice({
 
     }
 })
+
+//reducer
+export default birthdaySlice.reducer
+
+//selectors
+
+export const selectBirthdayList = () => (state: RootState) => state.birthday.birthdayList
+export const selectBirthdayError = () => (state: RootState) => state.birthday.error
+export const selectBirthdayFetchStatus = () => (state: RootState) => state.birthday.fetchStatus
