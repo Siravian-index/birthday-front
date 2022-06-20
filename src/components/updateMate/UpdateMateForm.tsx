@@ -14,6 +14,7 @@ interface IProps {
 }
 
 const UpdateMateForm: React.FC<IProps> = ({birthday: b}) => {
+    const OFFSET = 1
     //dispatch
     const dispatch = useAppDispatch()
 
@@ -21,10 +22,11 @@ const UpdateMateForm: React.FC<IProps> = ({birthday: b}) => {
     //split name into two
     const [firstName, surname] = b.name.split(" ")
     //format date
+    const [day, month, year] = b.birthday.split("-")
 
 
     //states
-    const [date, setDate] = useState<Date | null>(new Date());
+    const [date, setDate] = useState<Date | null>(new Date(`${year}-${month}-${Number(day) + OFFSET}`));
     const [name, setName] = useState(firstName)
     const [lastName, setLastName] = useState(surname)
     const [city, setCity] = useState(b.city)

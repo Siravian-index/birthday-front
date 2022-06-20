@@ -1,12 +1,12 @@
 import * as React from "react"
-import {ActionIcon, Badge, Button, Card, Group, Modal, Text, TextInput, Title, useMantineTheme} from "@mantine/core";
+import {useState} from "react"
+import {ActionIcon, Badge, Card, Group, Modal, Text, Title, useMantineTheme} from "@mantine/core";
 import {IBirthday} from "../../redux/features/birthday/birthdayTypes";
 import {Pencil, Trash} from "tabler-icons-react";
 import {useAppDispatch} from "../../redux/app/store";
 import {deleteBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
-import {useState} from "react";
-import AddMateForm from "../addMate/AddMateForm";
 import UpdateMateForm from "../updateMate/UpdateMateForm";
+import DeleteMateForm from "../deleteMate/DeleteMateForm";
 
 interface IProps {
     birthday: IBirthday
@@ -43,42 +43,35 @@ const MatesCard: React.FC<IProps> = ({birthday}) => {
 
     return (
         <div>
-            {/*-----------*/}
-
+            {/*------Modals-----*/}
             <Modal
                 opened={openDelete}
                 onClose={() => setOpenDelete(false)}
                 title="Are you sure you want to delete it?"
             >
-                <form onSubmit={handleSubmitDeletion}>
-                    <TextInput
-                        placeholder="Your secret"
-                        label="Secret"
-                        required
-                        value={secret}
-                        onChange={(e) => setSecret(e.target.value)}
-                    />
-                    <Button color='red' type='submit'>Delete</Button>
-                </form>
+                <DeleteMateForm
+                    handleSubmitDeletion={handleSubmitDeletion}
+                    secret={secret}
+                    setSecret={setSecret}/>
             </Modal>
             <Modal
                 opened={openEdit}
                 onClose={() => setOpenEdit(false)}
                 title={`Editing: ${birthday.name}`}
             >
-             <UpdateMateForm birthday={birthday}/>
+                <UpdateMateForm birthday={birthday}/>
             </Modal>
             {/*-----------*/}
             <Card shadow="sm" p="lg">
-                <Group grow style={{ display: 'flex', flexBasis: 'max-content'}}>
+                <Group>
                     <Title order={4} align='center'> {birthday.name}</Title>
                 </Group>
 
                 <Group style={{marginBottom: 5, marginTop: theme.spacing.sm}}>
                     <Text weight={500}>Birthday: {birthday.birthday}</Text>
-                        <Badge color="pink" variant="light">
-                            {birthday.maritalStatus}
-                        </Badge>
+                    <Badge color="pink" variant="light">
+                        {birthday.maritalStatus}
+                    </Badge>
 
                 </Group>
 
