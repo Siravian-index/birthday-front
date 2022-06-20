@@ -83,6 +83,10 @@ export default birthdaySlice.reducer
 export const selectBirthdayList = () => (state: RootState) => state.birthday.birthdayList
 export const selectBirthdayError = () => (state: RootState) => state.birthday.error
 export const selectBirthdayFetchStatus = () => (state: RootState) => state.birthday.fetchStatus
-export const slectThisMonthBirthdays = () => (state: RootState) => {
-    const now = new Date().toLocaleDateString();
+export const selectThisMonthBirthdays = () => (state: RootState) => {
+    const [year, thisMonth, today] = new Date().toLocaleDateString().split("-")
+    return state.birthday.birthdayList.filter((b) => {
+        const [day, month] = b.birthday.split('-')
+        return (thisMonth === month && day === today) || thisMonth === month
+    })
 }

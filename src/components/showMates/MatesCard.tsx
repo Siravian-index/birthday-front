@@ -58,7 +58,7 @@ const MatesCard: React.FC<IProps> = ({birthday}) => {
             {/*-----------*/}
             <Card shadow="sm" p="lg">
                 <Group>
-                    <Title order={4} align='center'> {birthday.name}</Title>
+                    <Title order={4} align='center'>{birthday.name}  {`<${birthday.age}/>`}</Title>
                 </Group>
 
                 <Group style={{marginBottom: 5, marginTop: theme.spacing.sm}}>

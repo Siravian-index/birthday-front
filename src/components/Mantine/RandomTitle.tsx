@@ -22,7 +22,7 @@ const RandomTitle : React.FC<IProps> = ({title, isPlural = false}) => {
         }
     }, [])
     return <>
-        <Title>{title} {chosen}</Title>
+        <Title mb='xs'>{title} {chosen}</Title>
     </>
 }
 
