@@ -4,6 +4,7 @@ import DashboardShell from "../pages/dashboard/DashboardShell";
 import ShowMatesPage from "../pages/showMates/ShowMatesPage";
 import AddMatePage from "../pages/addMate/AddMatePage";
 import UpdateMatePage from "../pages/updateMate/UpdateMatePage";
+import PageNotFound from "../components/error/PageNotFound";
 
 interface IProps {}
 
@@ -12,8 +13,8 @@ const AppRoutes : React.FC<IProps> = () => {
         <Route path="/" element={<DashboardShell/>}>
             <Route index element={<ShowMatesPage/>}/>
             <Route path='form' element={<AddMatePage/>}/>
-            <Route path='update' element={<UpdateMatePage/>}/>
         </Route>
+        <Route path='*' element={<PageNotFound/>} />
     </Routes>
 }
 
