@@ -7,6 +7,7 @@ import QuestionMarkIcon from "../Mantine/QuestionMarkIcon";
 import {useAppDispatch} from "../../redux/app/store";
 import {putBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import {IBirthday} from "../../redux/features/birthday/birthdayTypes";
+import {selectMaritalStatusData} from "../../types/generalData";
 
 interface IProps {
     birthday: IBirthday
@@ -39,12 +40,6 @@ const UpdateMateForm: React.FC<IProps> = ({birthday: b}) => {
         setSecret("")
         setMaritalStatus("")
     }
-    //selector data options
-    const data = [
-        {value: 'Married', label: 'Married'},
-        {value: 'Single', label: 'Single'},
-        {value: 'Looking for fun', label: 'Looking for fun'},
-    ]
 
 
     //on submit function
@@ -110,7 +105,7 @@ const UpdateMateForm: React.FC<IProps> = ({birthday: b}) => {
                         required
                         label="Marital Status"
                         placeholder="Pick one"
-                        data={data}
+                        data={selectMaritalStatusData}
                         value={maritalStatus}
                         onChange={(e) => setMaritalStatus(`${e}`)}
                     />
