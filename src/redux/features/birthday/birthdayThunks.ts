@@ -2,7 +2,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {IBirthday} from "./birthdayTypes";
 import {HEADERS, METHODS_HTTP} from "../../../types/generalTypes";
 
-const ENDPOINT = 'https://birthday-sofka-tracker.herokuapp.com/v1/api/birthday/'
+const ENDPOINT = 'https://birthday-sofka-tracker.herokuapp.com/v1/api/birthday'
 
 
 export const getAllBirthdaysThunk = createAsyncThunk('get/birthdays',
@@ -16,6 +16,16 @@ export const postBirthdaysThunk = createAsyncThunk('post/birthday',
         const response = await fetch(ENDPOINT, {
             headers: HEADERS ,
             method: METHODS_HTTP.POST,
+            body: JSON.stringify(birthday)
+        })
+        return (await response.json()) as IBirthday
+    })
+
+export const putBirthdaysThunk = createAsyncThunk('put/birthday',
+    async (birthday: IBirthday) => {
+        const response = await fetch(ENDPOINT, {
+            headers: HEADERS ,
+            method: METHODS_HTTP.PUT,
             body: JSON.stringify(birthday)
         })
         return (await response.json()) as IBirthday

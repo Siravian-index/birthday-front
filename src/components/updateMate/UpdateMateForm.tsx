@@ -2,10 +2,10 @@ import * as React from "react"
 import {useState} from "react"
 import {Button, Container, Group, Select, TextInput} from "@mantine/core";
 import {DatePicker} from "@mantine/dates";
-import {formatDate, fromStringToDate} from "../../utils";
+import {formatDate} from "../../utils";
 import QuestionMarkIcon from "../Mantine/QuestionMarkIcon";
 import {useAppDispatch} from "../../redux/app/store";
-import {postBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
+import {putBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import {IBirthday} from "../../redux/features/birthday/birthdayTypes";
 
 interface IProps {
@@ -52,7 +52,8 @@ const UpdateMateForm: React.FC<IProps> = ({birthday: b}) => {
         e.preventDefault()
         const filled = [name, lastName, city, phone, secret, maritalStatus].every(Boolean)
         if (filled && date) {
-            const newBirthday = {
+            const birthdayToUpdate = {
+                ...b,
                 name: `${name} ${lastName}`,
                 birthday: formatDate(date),
                 phone,
@@ -60,7 +61,7 @@ const UpdateMateForm: React.FC<IProps> = ({birthday: b}) => {
                 maritalStatus,
                 secret
             }
-            dispatch(postBirthdaysThunk(newBirthday))
+            dispatch(putBirthdaysThunk(birthdayToUpdate))
             clearAll()
         }
     }

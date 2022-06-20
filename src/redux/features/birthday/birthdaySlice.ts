@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IBirthday, IDeleteResponse, IState} from "./birthdayTypes";
 import {fetchStatus} from "../../../types/generalTypes";
-import {deleteBirthdaysThunk, getAllBirthdaysThunk, postBirthdaysThunk} from "./birthdayThunks";
+import {deleteBirthdaysThunk, getAllBirthdaysThunk, postBirthdaysThunk, putBirthdaysThunk} from "./birthdayThunks";
 import {RootState} from "../../app/store";
 
 const initialState: IState  = {
@@ -43,6 +43,18 @@ const birthdaySlice = createSlice({
             state.birthdayList.push(action.payload)
         })
     //    PUT
+        builder.addCase(putBirthdaysThunk.pending, (state) => {
+            state.fetchStatus = fetchStatus.PENDING
+        })
+        builder.addCase(putBirthdaysThunk.rejected, (state) => {
+            state.fetchStatus = fetchStatus.FAILED
+            state.error = "Something went wrong while fetching"
+        })
+        builder.addCase(putBirthdaysThunk.fulfilled, (state, {payload}:PayloadAction<IBirthday>) => {
+            state.fetchStatus = fetchStatus.SUCCESS
+            state.error = null
+            state.birthdayList = state.birthdayList.map((b) => b.id === payload.id ? payload : b)
+        })
     //    DELETE
         builder.addCase(deleteBirthdaysThunk.pending, (state) => {
             state.fetchStatus = fetchStatus.PENDING
