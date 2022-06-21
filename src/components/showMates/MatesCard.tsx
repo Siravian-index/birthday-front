@@ -5,7 +5,7 @@ import {IBirthday} from "../../redux/features/birthday/birthdayTypes";
 import {Pencil, Trash} from "tabler-icons-react";
 import UpdateMateForm from "../updateMate/UpdateMateForm";
 import DeleteMateForm from "../deleteMate/DeleteMateForm";
-import {formatString} from "../../utils/stringUtils";
+import {capitalizeFirstLetterOf, formatString} from "../../utils/stringUtils";
 
 interface IProps {
     birthday: IBirthday
@@ -75,7 +75,7 @@ const MatesCard: React.FC<IProps> = ({birthday}) => {
                         Phone: {birthday.phone}
                     </Text>
                     <Text size="sm" style={{color: secondaryColor, lineHeight: 1.5}}>
-                        City: {birthday.city}
+                        City: {capitalizeFirstLetterOf(birthday.city)}
                     </Text>
                 </Group>
                 <Group mt='sm'>

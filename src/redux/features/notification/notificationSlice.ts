@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {INotificationState} from "./notificationTypes";
 import {RootState} from "../../app/store";
 
@@ -16,13 +16,15 @@ const notificationSlice = createSlice({
         turnOnSuccessNotification: (state) => {
             state.showSuccess = true
         },
-        turnOffSuccessNotification: (state) => {
+        turnOffSuccessNotification: (state,action:PayloadAction<NodeJS.Timeout>) => {
+            clearTimeout(action.payload)
             state.showSuccess = false
         },
         turnOnFailNotification: (state) => {
             state.showFailed = true
         },
-        turnOffFailNotification: (state) => {
+        turnOffFailNotification: (state, action:PayloadAction<NodeJS.Timeout>) => {
+            clearTimeout(action.payload)
             state.showFailed = false
         },
         resetNotification: (state) => {

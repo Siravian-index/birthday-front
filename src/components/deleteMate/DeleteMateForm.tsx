@@ -25,13 +25,13 @@ const DeleteMateForm: React.FC<IProps> = ({setSecret, secret, birthday}) => {
         const {wasDeleted} = await dispatch(deleteBirthdaysThunk(birthdayToDelete)).unwrap()
         if (wasDeleted) {
             dispatch(turnOnSuccessNotification())
-            setTimeout(() => {
-                dispatch(turnOffSuccessNotification())
+            let timeoutId = setTimeout(() => {
+                dispatch(turnOffSuccessNotification(timeoutId))
             }, 5000)
         } else {
             dispatch(turnOnFailNotification())
-            setTimeout(() => {
-                dispatch(turnOffFailNotification())
+            let timeoutId = setTimeout(() => {
+                dispatch(turnOffFailNotification(timeoutId))
             }, 5000)
         }
 

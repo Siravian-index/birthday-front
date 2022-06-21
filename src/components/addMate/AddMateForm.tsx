@@ -56,14 +56,14 @@ const AddMateForm: React.FC<IProps> = () => {
             const response = await dispatch(postBirthdaysThunk(newBirthday)).unwrap()
             if (!response.error) {
                 dispatch(turnOnSuccessNotification())
-                setTimeout(() => {
-                    dispatch(turnOffSuccessNotification())
+                let timeoutId = setTimeout(() => {
+                    dispatch(turnOffSuccessNotification(timeoutId))
                 }, 5000)
                 clearAll()
             } else {
                 dispatch(turnOnFailNotification())
-                setTimeout(() => {
-                    dispatch(turnOffFailNotification())
+                let timeoutId = setTimeout(() => {
+                    dispatch(turnOffFailNotification(timeoutId))
                 }, 5000)
                 console.log("Failed to post")
                 console.log(response.error)
