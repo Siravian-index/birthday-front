@@ -36,8 +36,6 @@ const AddMateForm: React.FC<IProps> = () => {
     }
 
 
-
-
     //on submit function
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -114,9 +112,13 @@ const AddMateForm: React.FC<IProps> = () => {
                         onChange={(e) => setSecret(e.target.value)}
                     />
                 </Group>
-                <Button color="pink" radius="lg" mt='xs' type='submit'>
-                    Submit
-                </Button>
+                <Button
+                    variant="gradient"
+                    radius='lg'
+                    mt='xs'
+                    type='submit'
+                    gradient={{from: '#ed6ea0', to: '#ec8c69', deg: 35}}
+                >Submit</Button>
             </form>
         </Container>
     </>

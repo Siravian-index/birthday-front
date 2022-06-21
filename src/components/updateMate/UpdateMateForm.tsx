@@ -117,9 +117,13 @@ const UpdateMateForm: React.FC<IProps> = ({birthday: b}) => {
                         onChange={(e) => setSecret(e.target.value)}
                     />
                 </Group>
-                <Button color="pink" radius="lg" mt='xs' type='submit'>
-                    Submit
-                </Button>
+                <Button
+                    variant="gradient"
+                    radius='lg'
+                    mt='xs'
+                    type='submit'
+                    gradient={{from: '#ed6ea0', to: '#ec8c69', deg: 35}}
+                >Submit</Button>
             </form>
         </Container>
     </>
