@@ -11,6 +11,7 @@ import {Center, Grid, Loader} from "@mantine/core";
 import {getAllBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import {fetchStatus} from "../../types/generalTypes";
 import MatesCard from "./MatesCard";
+import ErrorComponent from "../error/ErrorComponent";
 
 interface IProps {
 }
@@ -44,7 +45,7 @@ const MatesList: React.FC<IProps> = () => {
     return <>
         {status === fetchStatus.PENDING && loader}
         {status === fetchStatus.SUCCESS && grid}
-        {status === fetchStatus.FAILED && <div> ooopps</div>}
+        {status === fetchStatus.FAILED && <ErrorComponent/>}
     </>
 }
 

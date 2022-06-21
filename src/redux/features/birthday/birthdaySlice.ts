@@ -19,6 +19,9 @@ const birthdaySlice = createSlice({
         updateFilter: (state, action: PayloadAction<string>) => {
             state.filter = action.payload.toLowerCase()
         },
+        updateFetchStatus: (state, action:PayloadAction<fetchStatus>) => {
+            state.fetchStatus = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getAllBirthdaysThunk.pending, (state) => {
@@ -81,7 +84,7 @@ const birthdaySlice = createSlice({
         })
         builder.addCase(deleteBirthdaysThunk.rejected, (state) => {
             state.fetchStatus = fetchStatus.FAILED
-            state.error = "Something went wrong while deleting"
+            state.error = "Something went wrong while deleting."
         })
         builder.addCase(deleteBirthdaysThunk.fulfilled, (state, action: PayloadAction<IDELETEResponse>) => {
             const {payload: {wasDeleted, id, error}} = action
@@ -99,7 +102,7 @@ const birthdaySlice = createSlice({
 })
 
 //actions
-export const {updateFilter} = birthdaySlice.actions
+export const {updateFilter, updateFetchStatus} = birthdaySlice.actions
 
 //reducer
 export default birthdaySlice.reducer

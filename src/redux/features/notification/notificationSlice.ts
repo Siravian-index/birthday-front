@@ -19,11 +19,15 @@ const notificationSlice = createSlice({
         toggleFailNotification: (state) => {
             state.showFailed = !state.showFailed
         },
+        resetNotification: (state) => {
+            state.showSuccess = false
+            state.showFailed = false
+        }
     }
 })
 
 
-export const {toggleFailNotification, toggleSuccessNotification} = notificationSlice.actions
+export const {toggleFailNotification, toggleSuccessNotification, resetNotification} = notificationSlice.actions
 
 export default notificationSlice.reducer
 
