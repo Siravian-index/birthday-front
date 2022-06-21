@@ -22,8 +22,19 @@ export interface IBirthday {
 }
 
 
-export interface IDeleteResponse {
-    wasDeleted: boolean
-    id: string
+
+export interface IGetResponse {
+    data: IBirthday[],
+    error: null | string
 }
 
+export interface IPOSTPUTResponse {
+    data: IBirthday,
+    error: null | string
+}
+
+export interface IDELETEResponse {
+    wasDeleted: boolean,
+    error: null | string,
+    id: string
+}

@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IBirthday, IDeleteResponse, IState} from "./birthdayTypes";
+import {IDELETEResponse, IGetResponse, IPOSTPUTResponse, IState} from "./birthdayTypes";
 import {fetchStatus} from "../../../types/generalTypes";
 import {deleteBirthdaysThunk, getAllBirthdaysThunk, postBirthdaysThunk, putBirthdaysThunk} from "./birthdayThunks";
 import {RootState} from "../../app/store";
@@ -32,10 +32,14 @@ const birthdaySlice = createSlice({
             state.fetchStatus = fetchStatus.FAILED
             state.error = "Something went wrong while fetching"
         })
-        builder.addCase(getAllBirthdaysThunk.fulfilled, (state, action: PayloadAction<IBirthday[]>) => {
-            state.fetchStatus = fetchStatus.SUCCESS
-            state.error = null
-            state.birthdayList = action.payload
+        builder.addCase(getAllBirthdaysThunk.fulfilled, (state, action: PayloadAction<IGetResponse>) => {
+            const {payload: {data, error}} = action
+            if (!error) {
+                state.fetchStatus = fetchStatus.SUCCESS
+                state.error = null
+                state.birthdayList = data
+            }
+
         })
         //    POST
         builder.addCase(postBirthdaysThunk.pending, (state) => {
@@ -45,10 +49,13 @@ const birthdaySlice = createSlice({
             state.fetchStatus = fetchStatus.FAILED
             state.error = "Something went wrong while fetching"
         })
-        builder.addCase(postBirthdaysThunk.fulfilled, (state, action: PayloadAction<IBirthday>) => {
-            state.fetchStatus = fetchStatus.SUCCESS
-            state.error = null
-            state.birthdayList.push(action.payload)
+        builder.addCase(postBirthdaysThunk.fulfilled, (state, action: PayloadAction<IPOSTPUTResponse>) => {
+            const {payload: {data, error}} = action
+            if (!error) {
+                state.fetchStatus = fetchStatus.SUCCESS
+                state.error = null
+                state.birthdayList.push(data)
+            }
         })
         //    PUT
         builder.addCase(putBirthdaysThunk.pending, (state) => {
@@ -58,10 +65,13 @@ const birthdaySlice = createSlice({
             state.fetchStatus = fetchStatus.FAILED
             state.error = "Something went wrong while fetching"
         })
-        builder.addCase(putBirthdaysThunk.fulfilled, (state, {payload}: PayloadAction<IBirthday>) => {
-            state.fetchStatus = fetchStatus.SUCCESS
-            state.error = null
-            state.birthdayList = state.birthdayList.map((b) => b.id === payload.id ? payload : b)
+        builder.addCase(putBirthdaysThunk.fulfilled, (state, action: PayloadAction<IPOSTPUTResponse>) => {
+            const {payload: {data, error}} = action
+            if (!error) {
+                state.fetchStatus = fetchStatus.SUCCESS
+                state.error = null
+                state.birthdayList = state.birthdayList.map((b) => b.id === data.id ? data : b)
+            }
         })
         //    DELETE
         builder.addCase(deleteBirthdaysThunk.pending, (state) => {
@@ -71,18 +81,13 @@ const birthdaySlice = createSlice({
             state.fetchStatus = fetchStatus.FAILED
             state.error = "Something went wrong while deleting"
         })
-        builder.addCase(deleteBirthdaysThunk.fulfilled, (state, {
-            payload: {
-                wasDeleted,
-                id
-            }
-        }: PayloadAction<IDeleteResponse>) => {
-            state.fetchStatus = fetchStatus.SUCCESS
-            state.error = null
-            if (wasDeleted) {
+        builder.addCase(deleteBirthdaysThunk.fulfilled, (state, action: PayloadAction<IDELETEResponse>) => {
+            const {payload: {wasDeleted, id, error}} = action
+            if (!error && wasDeleted) {
+                state.fetchStatus = fetchStatus.SUCCESS
+                state.error = null
                 state.birthdayList = state.birthdayList.filter(b => b.id !== id)
             }
-
         })
 
     }
@@ -102,7 +107,7 @@ export const selectBirthdayError = () => (state: RootState) => state.birthday.er
 export const selectBirthdayShowNotification = () => (state: RootState) => state.birthday.showNotification
 export const selectBirthdayFetchStatus = () => (state: RootState) => state.birthday.fetchStatus
 export const selectThisMonthBirthdays = () => (state: RootState) => {
-    const [year, thisMonth, today] = new Date().toLocaleDateString().split("-")
+    const [, thisMonth, today] = new Date().toLocaleDateString().split("-")
     return state.birthday.birthdayList.filter((b) => {
         const [day, month] = b.birthday.split('-')
         return (thisMonth === month && day === today) || thisMonth === month
