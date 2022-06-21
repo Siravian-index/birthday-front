@@ -9,8 +9,6 @@ const initialState: IState = {
     fetchStatus: fetchStatus.IDLE,
     error: null,
     filter: "",
-    showNotification: false,
-    // showErrorNotification: false
 }
 
 
@@ -21,9 +19,6 @@ const birthdaySlice = createSlice({
         updateFilter: (state, action: PayloadAction<string>) => {
             state.filter = action.payload.toLowerCase()
         },
-        toggleNotification: (state) => {
-            state.showNotification = !state.showNotification
-        }
     },
     extraReducers: (builder) => {
         builder.addCase(getAllBirthdaysThunk.pending, (state) => {
@@ -104,7 +99,7 @@ const birthdaySlice = createSlice({
 })
 
 //actions
-export const {updateFilter, toggleNotification} = birthdaySlice.actions
+export const {updateFilter} = birthdaySlice.actions
 
 //reducer
 export default birthdaySlice.reducer
@@ -114,7 +109,6 @@ export default birthdaySlice.reducer
 export const selectBirthdayList = () => (state: RootState) => state.birthday.birthdayList
 export const selectBirthdayFilter = () => (state: RootState) => state.birthday.filter
 export const selectBirthdayError = () => (state: RootState) => state.birthday.error
-export const selectBirthdayShowNotification = () => (state: RootState) => state.birthday.showNotification
 export const selectBirthdayFetchStatus = () => (state: RootState) => state.birthday.fetchStatus
 export const selectThisMonthBirthdays = () => (state: RootState) => {
     const [, thisMonth, today] = new Date().toLocaleDateString().split("-")

@@ -6,7 +6,6 @@ export interface IState {
     fetchStatus: fetchStatus
     birthdayList: IBirthday[]
     filter: string
-    showNotification: boolean
 }
 
 

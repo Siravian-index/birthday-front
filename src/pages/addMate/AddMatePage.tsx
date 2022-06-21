@@ -3,16 +3,18 @@ import AddMateForm from "../../components/addMate/AddMateForm";
 import RandomTitle from "../../components/Mantine/RandomTitle";
 import SuccessAlert from "../../components/Mantine/alert/SuccessAlert";
 import {useSelector} from "react-redux";
-import {selectBirthdayShowNotification} from "../../redux/features/birthday/birthdaySlice";
+import {selectNotificationFailed, selectNotificationSuccess} from "../../redux/features/notification/notificationSlice";
 
 interface IProps {
 }
 
 const AddMatePage: React.FC<IProps> = () => {
-    const show = useSelector(selectBirthdayShowNotification())
+    const success = useSelector(selectNotificationSuccess())
+    const failed = useSelector(selectNotificationFailed())
     return <>
         <RandomTitle title={"Add"}/>
-        {show && <SuccessAlert/>}
+        {success && <SuccessAlert/>}
+        {failed && <div>failed to post</div>}
         <AddMateForm></AddMateForm>
     </>
 }

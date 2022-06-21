@@ -8,7 +8,7 @@ import {useAppDispatch} from "../../redux/app/store";
 import {postBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import {selectMaritalStatusData} from "../../types/generalData";
 import {validatePhoneBeforeSetting} from "../../utils/stringUtils";
-import {toggleNotification} from "../../redux/features/birthday/birthdaySlice";
+import {toggleFailNotification, toggleSuccessNotification} from "../../redux/features/notification/notificationSlice";
 
 interface IProps {
 
@@ -26,7 +26,7 @@ const AddMateForm: React.FC<IProps> = () => {
     const [phone, setPhone] = useState("")
     const [secret, setSecret] = useState("")
     const [maritalStatus, setMaritalStatus] = useState("")
-    //
+
     const clearAll = () => {
         setName("")
         setLastName("")
@@ -35,7 +35,6 @@ const AddMateForm: React.FC<IProps> = () => {
         setSecret("")
         setMaritalStatus("")
     }
-
 
     //on submit function
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,15 +51,18 @@ const AddMateForm: React.FC<IProps> = () => {
             }
             const response = await dispatch(postBirthdaysThunk(newBirthday)).unwrap()
             if (!response.error) {
-                dispatch(toggleNotification())
+                dispatch(toggleSuccessNotification())
                 setTimeout(() => {
-                    dispatch(toggleNotification())
+                    dispatch(toggleSuccessNotification())
                 }, 5000)
                 clearAll()
             } else {
+                dispatch(toggleFailNotification())
+                setTimeout(() => {
+                    dispatch(toggleFailNotification())
+                }, 5000)
                 console.log("Failed to post")
                 console.log(response.error)
-                console.log(response.data)
             }
 
         }
