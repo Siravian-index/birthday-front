@@ -50,13 +50,19 @@ const AddMateForm: React.FC<IProps> = () => {
                 maritalStatus,
                 secret
             }
-            dispatch(postBirthdaysThunk(newBirthday))
-            //double dispatch
-            dispatch(toggleNotification())
-            setTimeout(() => {
+            const response = await dispatch(postBirthdaysThunk(newBirthday)).unwrap()
+            if (!response.error) {
                 dispatch(toggleNotification())
-            }, 5000)
-            clearAll()
+                setTimeout(() => {
+                    dispatch(toggleNotification())
+                }, 5000)
+                clearAll()
+            } else {
+                console.log("Failed to post")
+                console.log(response.error)
+                console.log(response.data)
+            }
+
         }
     }
 
