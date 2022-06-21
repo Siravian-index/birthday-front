@@ -1,6 +1,6 @@
 import * as React from "react"
+import {useEffect, useState} from "react"
 import {Title} from "@mantine/core";
-import {useEffect, useState} from "react";
 
 interface IProps {
     title: string

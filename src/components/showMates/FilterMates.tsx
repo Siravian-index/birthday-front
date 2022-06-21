@@ -1,9 +1,8 @@
 import * as React from "react"
+import {useEffect, useState} from "react"
 import {TextInput} from "@mantine/core";
-import {useSelector} from "react-redux";
-import {selectBirthdayFilter, updateFilter} from "../../redux/features/birthday/birthdaySlice";
+import {updateFilter} from "../../redux/features/birthday/birthdaySlice";
 import {useDebouncedValue} from "@mantine/hooks";
-import {useEffect, useState} from "react";
 import {useAppDispatch} from "../../redux/app/store";
 
 interface IProps {}

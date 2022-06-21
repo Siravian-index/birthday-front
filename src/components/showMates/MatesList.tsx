@@ -1,5 +1,5 @@
 import * as React from "react"
-import {useEffect, useState} from "react"
+import {useEffect} from "react"
 import {useAppDispatch} from "../../redux/app/store";
 import {useSelector} from "react-redux";
 import {
@@ -7,7 +7,7 @@ import {
     selectBirthdayFilter,
     selectBirthdayList
 } from "../../redux/features/birthday/birthdaySlice";
-import {Center, Grid, Loader, SimpleGrid} from "@mantine/core";
+import {Center, Grid, Loader} from "@mantine/core";
 import {getAllBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import {fetchStatus} from "../../types/generalTypes";
 import MatesCard from "./MatesCard";
@@ -37,8 +37,10 @@ const MatesList: React.FC<IProps> = () => {
 
 
     useEffect(() => {
-        dispatch(getAllBirthdaysThunk())
-    }, [])
+        if (status === fetchStatus.IDLE) {
+            dispatch(getAllBirthdaysThunk())
+        }
+    }, [dispatch])
     return <>
         {status === fetchStatus.PENDING && loader}
         {status === fetchStatus.SUCCESS && grid}
