@@ -13,10 +13,11 @@ interface IProps {
 const DeleteMateForm: React.FC<IProps> = ({ setSecret, secret, birthday}) => {
     const dispatch = useAppDispatch()
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const birthdayToDelete = {...birthday, secret}
-        dispatch(deleteBirthdaysThunk(birthdayToDelete))
+        const response = await dispatch(deleteBirthdaysThunk(birthdayToDelete)).unwrap()
+        console.log(response)
     }
     return <form onSubmit={(e) => handleSubmit(e)}>
         <TextInput

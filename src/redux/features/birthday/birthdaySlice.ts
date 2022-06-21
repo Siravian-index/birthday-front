@@ -9,7 +9,8 @@ const initialState: IState = {
     fetchStatus: fetchStatus.IDLE,
     error: null,
     filter: "",
-    showNotification: false
+    showNotification: false,
+    // showErrorNotification: false
 }
 
 
@@ -55,6 +56,9 @@ const birthdaySlice = createSlice({
                 state.fetchStatus = fetchStatus.SUCCESS
                 state.error = null
                 state.birthdayList.push(data)
+            } else {
+                state.fetchStatus = fetchStatus.FAILED
+                state.error = error
             }
         })
         //    PUT
@@ -71,6 +75,9 @@ const birthdaySlice = createSlice({
                 state.fetchStatus = fetchStatus.SUCCESS
                 state.error = null
                 state.birthdayList = state.birthdayList.map((b) => b.id === data.id ? data : b)
+            } else {
+                state.fetchStatus = fetchStatus.FAILED
+                state.error = error
             }
         })
         //    DELETE
@@ -87,6 +94,9 @@ const birthdaySlice = createSlice({
                 state.fetchStatus = fetchStatus.SUCCESS
                 state.error = null
                 state.birthdayList = state.birthdayList.filter(b => b.id !== id)
+            } else {
+                state.fetchStatus = fetchStatus.FAILED
+                state.error = error
             }
         })
 
