@@ -8,6 +8,7 @@ import {useAppDispatch} from "../../redux/app/store";
 import {postBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import {selectMaritalStatusData} from "../../types/generalData";
 import {validatePhoneBeforeSetting} from "../../utils/stringUtils";
+import {toggleNotification} from "../../redux/features/birthday/birthdaySlice";
 
 interface IProps {
 
@@ -50,6 +51,11 @@ const AddMateForm: React.FC<IProps> = () => {
                 secret
             }
             dispatch(postBirthdaysThunk(newBirthday))
+            //double dispatch
+            dispatch(toggleNotification())
+            setTimeout(() => {
+                dispatch(toggleNotification())
+            }, 5000)
             clearAll()
         }
     }
