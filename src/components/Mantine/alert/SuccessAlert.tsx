@@ -1,6 +1,6 @@
 import * as React from "react"
-import {Notification, Alert} from '@mantine/core';
-import {Check, AlertCircle} from 'tabler-icons-react';
+import {Notification} from '@mantine/core';
+import {Check} from 'tabler-icons-react';
 
 
 interface IProps {

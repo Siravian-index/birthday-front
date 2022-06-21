@@ -11,8 +11,8 @@ interface IProps {
 const AddMatePage: React.FC<IProps> = () => {
     const show = useSelector(selectBirthdayShowNotification())
     return <>
-        {show && <SuccessAlert/>}
         <RandomTitle title={"Add"}/>
+        {show && <SuccessAlert/>}
         <AddMateForm></AddMateForm>
     </>
 }
