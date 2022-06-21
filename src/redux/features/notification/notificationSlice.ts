@@ -13,11 +13,17 @@ const notificationSlice = createSlice({
     name: "notification",
     initialState,
     reducers: {
-        toggleSuccessNotification: (state) => {
-            state.showSuccess = !state.showSuccess
+        turnOnSuccessNotification: (state) => {
+            state.showSuccess = true
         },
-        toggleFailNotification: (state) => {
-            state.showFailed = !state.showFailed
+        turnOffSuccessNotification: (state) => {
+            state.showSuccess = false
+        },
+        turnOnFailNotification: (state) => {
+            state.showFailed = true
+        },
+        turnOffFailNotification: (state) => {
+            state.showFailed = false
         },
         resetNotification: (state) => {
             state.showSuccess = false
@@ -27,7 +33,7 @@ const notificationSlice = createSlice({
 })
 
 
-export const {toggleFailNotification, toggleSuccessNotification, resetNotification} = notificationSlice.actions
+export const {turnOnFailNotification, turnOffFailNotification, turnOnSuccessNotification,turnOffSuccessNotification,  resetNotification} = notificationSlice.actions
 
 export default notificationSlice.reducer
 

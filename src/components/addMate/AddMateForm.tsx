@@ -8,7 +8,11 @@ import {useAppDispatch} from "../../redux/app/store";
 import {postBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import {selectMaritalStatusData} from "../../types/generalData";
 import {validatePhoneBeforeSetting} from "../../utils/stringUtils";
-import {toggleFailNotification, toggleSuccessNotification} from "../../redux/features/notification/notificationSlice";
+import {
+    turnOffFailNotification, turnOffSuccessNotification,
+    turnOnFailNotification,
+    turnOnSuccessNotification
+} from "../../redux/features/notification/notificationSlice";
 
 interface IProps {
 
@@ -51,15 +55,15 @@ const AddMateForm: React.FC<IProps> = () => {
             }
             const response = await dispatch(postBirthdaysThunk(newBirthday)).unwrap()
             if (!response.error) {
-                dispatch(toggleSuccessNotification())
+                dispatch(turnOnSuccessNotification())
                 setTimeout(() => {
-                    dispatch(toggleSuccessNotification())
+                    dispatch(turnOffSuccessNotification())
                 }, 5000)
                 clearAll()
             } else {
-                dispatch(toggleFailNotification())
+                dispatch(turnOnFailNotification())
                 setTimeout(() => {
-                    dispatch(toggleFailNotification())
+                    dispatch(turnOffFailNotification())
                 }, 5000)
                 console.log("Failed to post")
                 console.log(response.error)

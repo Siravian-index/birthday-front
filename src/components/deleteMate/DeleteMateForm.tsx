@@ -3,7 +3,12 @@ import {Button, TextInput} from "@mantine/core";
 import {deleteBirthdaysThunk} from "../../redux/features/birthday/birthdayThunks";
 import {IBirthday} from "../../redux/features/birthday/birthdayTypes";
 import {useAppDispatch} from "../../redux/app/store";
-import {toggleFailNotification, toggleSuccessNotification} from "../../redux/features/notification/notificationSlice";
+import {
+    turnOffFailNotification,
+    turnOffSuccessNotification,
+    turnOnFailNotification,
+    turnOnSuccessNotification
+} from "../../redux/features/notification/notificationSlice";
 
 interface IProps {
     birthday: IBirthday
@@ -19,14 +24,14 @@ const DeleteMateForm: React.FC<IProps> = ({setSecret, secret, birthday}) => {
         const birthdayToDelete = {...birthday, secret}
         const {wasDeleted} = await dispatch(deleteBirthdaysThunk(birthdayToDelete)).unwrap()
         if (wasDeleted) {
-            dispatch(toggleSuccessNotification())
+            dispatch(turnOnSuccessNotification())
             setTimeout(() => {
-                dispatch(toggleSuccessNotification())
+                dispatch(turnOffSuccessNotification())
             }, 5000)
         } else {
-            dispatch(toggleFailNotification())
+            dispatch(turnOnFailNotification())
             setTimeout(() => {
-                dispatch(toggleFailNotification())
+                dispatch(turnOffFailNotification())
             }, 5000)
         }
 
