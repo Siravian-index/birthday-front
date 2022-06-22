@@ -1,12 +1,8 @@
-export const formatDate = (date: Date) => date.toLocaleDateString().split('-').reverse().join('-')
 
-
-
-//toggles between these formats
-//dd/mm/yyyy
-//yyyy/mm/dd
-export const toggleDateFormat = (date: string) =>  date.split('-').reverse().join('-')
-
+export const formatDate = (date: Date) => {
+    const [stringDate] = date.toISOString().split("T")
+    return stringDate.split('-').reverse().join('-')
+}
 
 export const correctDateFormat = (date: string) => {
     const OFFSET = 1

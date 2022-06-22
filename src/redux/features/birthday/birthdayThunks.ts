@@ -2,10 +2,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {IBirthday, IDELETEResponse, IGetResponse, IPOSTPUTResponse} from "./birthdayTypes";
 import {HEADERS, METHODS_HTTP} from "../../../types/generalTypes";
 
-// const ENDPOINT = 'https://birthday-sofka-tracker.herokuapp.com/v1/api/birthday/'
-const ENDPOINT = 'http://localhost:8080/v1/api/birthday/'
-
-
+const ENDPOINT = 'https://birthday-sofka-tracker.herokuapp.com/v1/api/birthday/'
 
 
 export const getAllBirthdaysThunk = createAsyncThunk('get/birthdays',
@@ -57,5 +54,5 @@ export const deleteBirthdaysThunk = createAsyncThunk('delete/birthday',
         if (response.ok) {
             return {wasDeleted: response.ok, id: `${birthday.id}`, error: null}
         }
-        return {wasDeleted:  response.ok, id: '', error: "Something went wrong while deleting"}
+        return {wasDeleted: response.ok, id: '', error: "Something went wrong while deleting"}
     })

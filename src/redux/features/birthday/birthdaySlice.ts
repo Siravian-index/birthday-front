@@ -3,6 +3,7 @@ import {IDELETEResponse, IGetResponse, IPOSTPUTResponse, IState} from "./birthda
 import {fetchStatus} from "../../../types/generalTypes";
 import {deleteBirthdaysThunk, getAllBirthdaysThunk, postBirthdaysThunk, putBirthdaysThunk} from "./birthdayThunks";
 import {RootState} from "../../app/store";
+import {formatDate} from "../../../utils/dateUtils";
 
 const initialState: IState = {
     birthdayList: [],
@@ -19,7 +20,7 @@ const birthdaySlice = createSlice({
         updateFilter: (state, action: PayloadAction<string>) => {
             state.filter = action.payload.toLowerCase()
         },
-        updateFetchStatus: (state, action:PayloadAction<fetchStatus>) => {
+        updateFetchStatus: (state, action: PayloadAction<fetchStatus>) => {
             state.fetchStatus = action.payload
         }
     },
@@ -114,9 +115,10 @@ export const selectBirthdayFilter = () => (state: RootState) => state.birthday.f
 export const selectBirthdayError = () => (state: RootState) => state.birthday.error
 export const selectBirthdayFetchStatus = () => (state: RootState) => state.birthday.fetchStatus
 export const selectThisMonthBirthdays = () => (state: RootState) => {
-    const [, thisMonth, today] = new Date().toLocaleDateString().split("-")
+    const [, thisMonth] = formatDate(new Date()).split("-")
+
     return state.birthday.birthdayList.filter((b) => {
-        const [day, month] = b.birthday.split('-')
-        return (thisMonth === month && day === today) || thisMonth === month
+        const [, month] = b.birthday.split('-')
+        return thisMonth === month
     })
 }
